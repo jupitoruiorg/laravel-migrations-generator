@@ -28,16 +28,18 @@ class MigrationStub
     public function populateStub(
         string $stub,
         string $use,
+        string $constructor,
         string $className,
         string $upContent,
         string $downContent,
     ): string {
         $content = $stub;
         $replace = [
-            '{{ use }}'   => $use,
-            '{{ class }}' => $className,
-            '{{ up }}'    => $upContent,
-            '{{ down }}'  => $downContent,
+            '{{ use }}'         => $use,
+            '{{ constructor }}' => $constructor,
+            '{{ class }}'       => $className,
+            '{{ up }}'          => $upContent,
+            '{{ down }}'        => $downContent,
         ];
         return str_replace(array_keys($replace), $replace, $content);
     }

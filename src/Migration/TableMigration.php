@@ -56,6 +56,7 @@ class TableMigration
         $down = $this->down($table);
 
         $this->migrationWriter->writeTo(
+            $table->getName(),
             $path = $this->makeMigrationPath($table->getName()),
             $this->setting->getStubPath(),
             $this->makeMigrationClassName($table->getName()),

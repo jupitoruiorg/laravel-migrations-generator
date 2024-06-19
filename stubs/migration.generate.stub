@@ -4,6 +4,8 @@
 
 return new class extends Migration
 {
+    {{ constructor }}
+
     /**
      * Run the migrations.
      */

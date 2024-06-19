@@ -396,8 +396,8 @@ class MigrateGenerateCommand extends Command
         }
 
         $setting->getDate()->addSecond();
-        $this->info("\nSetting up Foreign Key migrations.");
-        $this->generateForeignKeys($tables);
+        //$this->info("\nSetting up Foreign Key migrations.");
+        //$this->generateForeignKeys($tables);
     }
 
     /**
@@ -424,8 +424,8 @@ class MigrateGenerateCommand extends Command
             $this->generateProceduresToTemp();
         }
 
-        $this->info("\nSetting up Foreign Key migrations.");
-        $this->generateForeignKeysToTemp($tables);
+        //$this->info("\nSetting up Foreign Key migrations.");
+        //$this->generateForeignKeysToTemp($tables);
 
         $migrationFilepath = $this->squash->squashMigrations();
 

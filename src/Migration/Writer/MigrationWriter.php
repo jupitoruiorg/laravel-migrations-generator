@@ -25,6 +25,7 @@ class MigrationWriter
      * @param  \Illuminate\Support\Collection<int, \KitLoong\MigrationsGenerator\Migration\Blueprint\WritableBlueprint>  $down  Blueprint of migration `down`.
      */
     public function writeTo(
+        string $name,
         string $path,
         string $stubPath,
         string $className,
@@ -53,9 +54,17 @@ class MigrationWriter
                 File::makeDirectory($directory, 0755, true);
             }
 
+            $constructor = <<<'EOT'
+            public function __construct()
+                {
+                    $this->setTable(table: '{$name}');
+                }
+            EOT;
+            $constructor = str_replace('{$name}', $name, $constructor);
+
             File::put(
                 $path,
-                $this->migrationStub->populateStub($stub, $use, $className, $upString, $downString),
+                $this->migrationStub->populateStub($stub, $use, $constructor, $className, $upString, $downString),
             );
         } catch (FileNotFoundException) {
             // Do nothing.
@@ -72,14 +81,14 @@ class MigrationWriter
             || $migrationFileType === MigrationFileType::PROCEDURE
         ) {
             return [
-                'use Illuminate\Database\Migrations\Migration;',
+                'use Bct\Containers\Core\Migration\Migration;',
                 'use Illuminate\Support\Facades\DB;',
             ];
         }
 
         $imports = [
-            'use Illuminate\Database\Migrations\Migration;',
-            'use Illuminate\Database\Schema\Blueprint;',
+            'use Bct\Containers\Core\Migration\Migration;',
+            'use App\Extend\Laravel\Database\Schema\Blueprint;',
         ];
 
         if ($useDBFacade) {
