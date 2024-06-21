@@ -37,7 +37,8 @@ class MigrationWriter
             $stub = $this->migrationStub->getStub($stubPath);
 
             $upString   = $this->prettifyToString($up);
-            $downString = $this->prettifyToString($down);
+            $downString = '';
+            //$downString = $this->prettifyToString($down);
 
             $useDBFacade = false;
 
@@ -54,6 +55,12 @@ class MigrationWriter
                 File::makeDirectory($directory, 0755, true);
             }
 
+            /**
+             * May be added to constructor
+             * ```
+             * $this->setConnectionName(name: 'mysql_logs');
+             * ```
+             */
             $constructor = <<<'EOT'
             public function __construct()
                 {

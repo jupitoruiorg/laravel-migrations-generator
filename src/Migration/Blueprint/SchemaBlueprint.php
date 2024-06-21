@@ -128,7 +128,8 @@ class SchemaBlueprint implements WritableBlueprint
         }
 
         $lines   = [];
-        $lines[] = "$schema('$this->table', function (Blueprint \$table) {";
+        $lines[] = '$this->table(function (Blueprint $table) {';
+        //$lines[] = "$schema('$this->table', function (Blueprint \$table) {";
 
         if (app(Setting::class)->isWithHasTable()) {
             $this->blueprint->increaseNumberOfPrefixTab();
